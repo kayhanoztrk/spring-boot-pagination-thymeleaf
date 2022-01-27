@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pagination Thymeleaf Example</title>
+    <meta charset="utf8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Add User From</h3>
+
+    <form action="#" th:action="@{/users/create}" method="POST"
+          th:object="${user}">
+        <input type="hidden" name="id" th:field="*{id}">
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="your_name" class="col-sm-2 col-form-label">Your name:</label>
+                    <input type="text" name="your_name" id="your_name" placeholder="Your name.."
+                           th:field="*{name}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="surname" class="col-sm-2 col-form-label">Surname:</label>
+                    <input type="text" name="surname" id="surname" placeholder="Surname.."
+                           th:field="*{surname}">
+                </div>
+            </div>
+            <br/>
+            <input type="submit" class="btn btn-success" name="Add User" value="Add User">
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

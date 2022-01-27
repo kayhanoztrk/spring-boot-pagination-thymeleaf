@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pagination Thymeleaf Example</title>
+    <meta charset="utf8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>
+        <a th:href="@{/users}">
+            Users List
+        </a>
+    </h3>
+    <hr/>
+    <a th:href="@{/users/showFormForAdd}" class="btn btn-primary">
+        Add Student
+    </a>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Email Adres</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"/>
+            <td th:text="${user.name}"/>
+            <td th:text="${user.surname}"/>
+            <td th:text="${user.createdDate}"/>
+            <td>
+                <a th:href="@{/users/showFormForUpdate(id=${user.id})}"
+                   class="btn btn-primary">Update</a>
+            </td>
+            <td>
+                <a th:href="@{/users/delete(id=${user.id})}"
+                   class="btn btn-primary">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div th:if="${totalPages > 1}">
+        <strong>TotalPages: [[${totalPages}]]</strong>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <span th:if="${currentPage - 1 > 0}">
+                    <li class="page-item">
+                    <a class="page-link" th:href="@{/users/pagination(currentPage=${currentPage - 1})}">
+                        Previous
+                    </a>
+                </li>
+                </span>
+
+                <span th:each="page : ${#numbers.sequence(1, totalPages)}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/users/pagination(currentPage=${page})}">
+                        [[${page}]]
+                    </a>
+                </li>
+                </span>
+
+                <span th:if="${currentPage < totalPages}">
+                    <li class="page-item">
+                    <a class="page-link" th:href="@{/users/pagination(currentPage=${totalPages})}">
+                        Next
+                    </a>
+                    </li>
+                </span>
+
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+</body>
